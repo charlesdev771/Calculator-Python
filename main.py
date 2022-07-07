@@ -21,16 +21,44 @@ class Calculator(QMainWindow):
 
 
         self.add_btn(QPushButton('7'), 1, 0, 1,1)
+        self.add_btn(QPushButton('8'), 1, 1, 1,1)
+        self.add_btn(QPushButton('9'), 1, 2, 1,1)
+        self.add_btn(QPushButton('+'), 1, 3, 1,1)
+        self.add_btn(QPushButton('C'), 1, 4, 1,1, lambda: self.display.setText(''))
+
+        self.add_btn(QPushButton('4'), 2, 0, 1,1)
+        self.add_btn(QPushButton('5'), 2, 1, 1,1)
+        self.add_btn(QPushButton('6'), 2, 2, 1,1)
+        self.add_btn(QPushButton('-'), 2, 3, 1,1)
+        self.add_btn(QPushButton('<-'), 2, 4, 1,1)
+
+        self.add_btn(QPushButton('1'), 3, 0, 1,1)
+        self.add_btn(QPushButton('2'), 3, 1, 1,1)
+        self.add_btn(QPushButton('3'), 3, 2, 1,1)
+        self.add_btn(QPushButton('/'), 3, 3, 1,1)
+        self.add_btn(QPushButton(''), 3, 4, 1,1)
+
+        self.add_btn(QPushButton('.'), 4, 0, 1,1)
+        self.add_btn(QPushButton('0'), 4, 1, 1,1)
+        self.add_btn(QPushButton(''), 4, 2, 1,1)
+        self.add_btn(QPushButton('*'), 4, 3, 1,1)
+        self.add_btn(QPushButton('='), 4, 4, 1,1)
+
 
         self.setCentralWidget(self.cw)
 
-    def add_btn(self, btn, row, col, rowspan, colspan):
+    def add_btn(self, btn, row, col, rowspan, colspan, func=None):
         self.grid.addWidget(btn, row, col, rowspan, colspan)
-        btn.clicked.connect(
-            lambda: self.display.setText(
-                self.display.text() + btn.text()
-            )
-        )
+        if not func:
+
+            btn.clicked.connect(
+                lambda: self.display.setText(
+                    self.display.text() + btn.text()
+                    )
+                )
+        else:
+            btn.clicked.connect(func)
+
         btn.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
 
 if __name__ == '__main__':
